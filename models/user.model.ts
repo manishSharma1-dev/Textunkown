@@ -73,4 +73,6 @@ const UserSchema: Schema<User> = new Schema({
 // Next js is an edge type language -> in work differntly from the node js like you will not have an infomartion that the db is already Startd or not , so you need to check it firtly if yes -> like the db is started then dont need to start it again , if no then as usual start it again.
 const Usermodel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>("User",UserSchema)
 
-export default Usermodel
+export {
+    Usermodel
+}

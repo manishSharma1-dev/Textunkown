@@ -1,7 +1,7 @@
 export default function Home(){
   return (
     <div>
-      hello program starts here
+      <h2 className="text-center font-bold text-2xl">Project- Textunknown</h2>
     </div>
   )
 }
