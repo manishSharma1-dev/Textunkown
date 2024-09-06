@@ -52,5 +52,33 @@ export const authOptions:NextAuthOptions = {
 
             }
         })
-    ]
+    ],
+    callbacks : { 
+        async jwt({ token, user }) {
+            if(user){ //Adding custom value to the token to avoid extra database query
+                token._id = user?._id?.toString()
+                token.isverified = user.isverified
+                token.isAcceptingMessages = user.isAcceptingMessages
+                token.username = user.username
+            }
+
+            return token
+        },
+        async session({ session, token }) { //adding custom value to the session token
+            if( token ){
+                session.user._id = typeof(token._id)=='string'?token._id:''
+                session.user.isverified = typeof(token?.isverified)=='boolean'?token.isverified:false
+                session.user.isAcceptingMessages = typeof(token.isAcceptingMessages)=='boolean'?token.isAcceptingMessages:false
+                session.user.username = typeof(token.username)=='string'?token.username:''
+            }
+            return session
+        }
+    },
+    pages : {
+        signIn : '/sign-in' //Next auth will automatically Create a sign-in page by this cmd...
+    },
+    session :  {
+        strategy : 'jwt', //will by default use session jwt 
+    }, 
+    secret : process.env.NEXTAUTH_SECERET_KEY
 }
