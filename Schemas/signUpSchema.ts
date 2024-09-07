@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const checkUserName = z
+export const checkUserName = z
     .string()
     .min(3,"UserName must be atleast of two character")
     .max(15,"Username must not exceed 15 cahracter")
@@ -22,8 +22,8 @@ export const checkSignUpSchema = z.object({
     password : checkPassword
 }) 
 
-export { 
-    checkUserName,
-    checkEmail,
-    checkPassword
-}
+// export { 
+//     checkUserName,
+//     checkEmail,
+//     checkPassword
+// }
