@@ -1,4 +1,5 @@
 "use client"
+// this is just a page component that will show a sign-in page 
 
 import { useSession, signIn, signOut } from "next-auth/react"
 

@@ -1,3 +1,5 @@
+// this will handle the credential in auth otpiton that we have set 
+
 import NextAuth from "next-auth/next";
 import { authOptions } from "./options";
 

@@ -1,3 +1,5 @@
+//this  route will work when i will add the mongodb String to the project  
+
 import { connectDB } from "@/lib/databaseConnection";
 import { Usermodel } from "@/models/user.model"
 import bcrypt from "bcryptjs"
