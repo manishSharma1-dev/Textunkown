@@ -1,5 +1,7 @@
 //We are using here CREDENTIALS -> WHERE you have you own settings and need to authenticate user against it .
 
+// Setting Credential for sign-in -> this route will help user to logged in - signin route
+
 import { connectDB } from "@/lib/databaseConnection";
 import { NextAuthOptions } from "next-auth";
 import { Usermodel } from "@/models/user.model";

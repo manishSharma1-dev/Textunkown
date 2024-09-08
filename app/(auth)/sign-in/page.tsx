@@ -1,22 +1,32 @@
 "use client"
-// this is just a page component that will show a sign-in page 
+// Creating form for handling uaer sign-in feature
 
-import { useSession, signIn, signOut } from "next-auth/react"
+import React, { useState } from 'react'
+import { checkUserName } from "@/Schemas/signUpSchema"
+import Link from 'next/link'
+import axios from 'axios'
 
-export default function Component() {
-  const { data: session } = useSession()
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()} className="border-2 p-2 bg-black text-white rounded-md">Sign out</button>
-      </>
-    )
-  }
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Toaster } from "@/components/ui/toaster"
+import * as z from "zod"
+ 
+import { useDebounceValue } from "usehooks-ts" //this library is used here to to throtting/debouncing of the value -> A Custom hook that returns a debounced version of the provided value, along with a function to update it.
+ 
+const formSchema = z.object({
+  username: checkUserName
+})
+
+export default function page() {
+  const [username,setUsername] = useState(' ') // this state -> to handle Username send by user
+  const [usernameMessage, setUsernameMessage] = useState(' ') //  this state for handling response from backecnd  when we pass it
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false) // loading state
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const debouncedValue = useDebounceValue(username, 300) 
+
   return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()} className="border-2 p-2 bg-black text-white rounded-md">Sign in</button>
-    </>
+    <div>hello this is sign-in form handle page </div>
   )
 }
+
+
