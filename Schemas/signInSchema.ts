@@ -5,4 +5,5 @@ import { z } from "zod"
 export const checkSignInSchema = z.object({
     username : z.string(),  // identifier as a username
     email : z.string(),
+    password  :z.string()
 })
