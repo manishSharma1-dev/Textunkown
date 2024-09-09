@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { checkSignUpSchema } from "@/Schemas/signUpSchema"
 import Link from 'next/link'
 import axios from 'axios'
-import { useToast } from "@/components/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, useForm } from "react-hook-form"
 import * as z from "zod"
@@ -87,6 +87,7 @@ export default function page() {
     checkUserName() 
 
   },[debouncedValue])
+  
 
   const onSubmit= async( data: z.infer<typeof checkSignUpSchema > ) => {
     setIsSubmitting(true)
@@ -113,7 +114,7 @@ export default function page() {
       description : 'message sent Successfully'
     })
 
-    router.replace(`/verifyCode/${username}`)
+    router.replace(`/verify/${username}`)
 
     return Response.json(
       {
