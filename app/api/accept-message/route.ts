@@ -133,20 +133,19 @@ export async function GET(request:Request) {
             throw new Error("No User exits with this user ID")
         }
     
-        const StatusOfUser_if_he_IsAcceptingMessage = existedUser?.isAcceptingMessages
     
         return Response.json(
             {
                 success : true,
-                message : "found User detail if he is accepting Message or not",
-                StatusOfUser_if_he_IsAcceptingMessage
+                message : "User is accepting Messages",
+                isAcceptingMessages : existedUser?.isAcceptingMessages
             },
             {
                 status : 200
             }
         )
     } catch (error) {
-        console.error("An Error Occured while finding if the user is accepting maessge or not")
+        console.error("An Error Occured while finding if the user is accepting maessge or not/ User may be not be Accepting Messages", error)
         return Response.json(
             {
                 success : false,

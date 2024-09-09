@@ -2,23 +2,19 @@
 // Creating form for handling uaer sign-up feature
 
 import React, { useState } from 'react'
-import Link from 'next/link'
 import { useToast } from "@/hooks/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, useForm } from "react-hook-form"
 import * as z from "zod"
 import { useRouter } from 'next/navigation'
-import { useDebounceValue } from "usehooks-ts" //this library is used here to to throtting/debouncing of the value -> A Custom hook that returns a debounced version of the provided value, along with a function to update it.
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Loader2 } from "lucide-react"
 import { checkSignInSchema } from '@/Schemas/signInSchema'
 import { signIn } from 'next-auth/react'
 
 
 export default function page() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
   const  router  = useRouter()
 
@@ -33,11 +29,29 @@ export default function page() {
   
 
   const onSubmit= async( data: z.infer<typeof checkSignInSchema > ) => {
-    await signIn('credentials',{
+    const result = await signIn('credentials',{
       redirect : false,
       identifiers : data.identifiers,
       password : data.password
     })
+
+    if(result?.error){
+
+      toast({
+        title : "sign-in Failed",
+        description : result?.error
+      })
+
+      throw new Error("Failed to sign-in User")
+    }
+
+    toast({
+      title : "success",
+      description : result?.url
+    })
+
+    router.replace('/dashboard')
+
   }
 
 
