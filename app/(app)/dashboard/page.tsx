@@ -92,6 +92,36 @@ export default function page() {
       fetchAllMessages()
     }, [session,setValue,fetchAcceptMessages,fetchAllMessages])
 
+    const Handle_Switch_Change_Between_Accept_OrDecline_Message  = async() => {
+
+      setIsSwitchLoading(false)
+
+      try {
+        const response  = await axios.post<ApiResponse>('/api/accept-message',{
+          acceptMessages : !acceptMessages
+        })
+
+        if(response){
+          toast({
+            title : "Success",
+            description : "Access granted"
+          })
+        }
+  
+      } catch (error) {
+
+        toast({
+          title : "Switching Failed",
+          description : `An Error Occured while access to the switch ${error}`
+        })
+
+        throw new Error('An Error Occured while Switched between access')
+      } finally { 
+        setIsSwitchLoading(false)
+      }
+
+    }
+
   return (
     <div>
       
